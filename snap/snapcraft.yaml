@@ -20,6 +20,18 @@ description: |
   its beautiful interface and powerful skinning engine, Kodi feels very natural
   to use from the couch with a remote control and is the ideal solution for your
   home theater.
+
+  ---
+
+  \#\# Interfaces:
+  - `gpu-2404`
+    Provides the userspace GPU drivers, enabling rendering and video decoding
+    acceleration. See [The gpu-2404 snap interface](https://mir-server.io/docs/the-gpu-2404-snap-interface)
+    for more information.
+    This will normally be connected to the [`mesa-2404`](https://snapcraft.io/mesa-2404/)
+    snap, serving all open source drivers and Nvidia userspace from the host
+    system, where possible.
+
 icon: snap/gui/kodi.svg
 website: https://kodi.tv/
 donation:
@@ -38,6 +50,20 @@ license: GPL-2.0-or-later
 
 grade: devel
 confinement: devmode
+
+layout:
+  /usr/share/libdrm:
+    bind: $SNAP/gpu-2404/libdrm
+  /usr/share/drirc.d:
+    symlink: $SNAP/gpu-2404/drirc.d
+  /usr/share/X11/XErrorDB:
+    symlink: $SNAP/gpu-2404/X11/XErrorDB
+
+plugs:
+  gpu-2404:
+    interface: content
+    target: $SNAP/gpu-2404
+    default-provider: mesa-2404
 
 parts:
   displayinfo:
@@ -327,13 +353,10 @@ parts:
     - libfontconfig1
     - libfribidi0
     - libfstrcmp0
-    - libgbm1
     - libgdk-pixbuf-2.0-0
     - libgfortran5
     - libgif7
-    - libgl1
     - libglvnd0
-    - libglx0
     - libgme0
     - libgomp1
     - libgraphite2-3
@@ -425,11 +448,6 @@ parts:
     - libtwolame0
     - libudfread0
     - libunibreak5
-    - libva-drm2
-    - libva-wayland2
-    - libva-x11-2
-    - libva2
-    - libvdpau1
     - libvidstab1.1
     - libvorbis0a
     - libvorbisenc2
@@ -439,12 +457,9 @@ parts:
     - libwacom9
     - libcwiid1t64
     - libwayland-client++1
-    - libwayland-client0
     - libwayland-cursor++1
     - libwayland-cursor0
     - libwayland-egl++1
-    - libwayland-egl1
-    - libwayland-server0
     - libwbclient0
     - libwebp7
     - libwebpmux3
@@ -458,8 +473,6 @@ parts:
     - libxcb-render0
     - libxcb1
     - libxdmcp6
-    - libxext6
-    - libxfixes3
     - libxml2
     - libxrandr2
     - libxrender1
@@ -492,9 +505,6 @@ parts:
     - -usr/lib/*/libflite_cmu_time_awb.so*
     - -usr/lib/*/libhwy_contrib.so*
     - -usr/lib/*/libhwy_test.so*
-    - -usr/lib/*/libicuio.so*
-    - -usr/lib/*/libicutest.so*
-    - -usr/lib/*/libicutu.so*
     - -usr/lib/*/libjacknet.so*
     - -usr/lib/*/libjackserver.so*
     - -usr/lib/*/libnetapi.so*
@@ -511,16 +521,12 @@ parts:
       usr/lib/*/lapack/*: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/
       usr/lib/*/pulseaudio/*: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/
 
-lint:
-  ignore:
-  - library:
-    - usr/lib/*/libEGL_mesa.so*
-    - usr/lib/*/libGLX_mesa.so*
-    # TODO: https://bugs.launchpad.net/snapcraft/+bug/2080610
-    - usr/lib/*/libXxf86vm.so*
-    - usr/lib/*/libxcb-dri2.so*
-    - usr/lib/*/libxcb-glx.so*
-    - usr/lib/*/libxcb-present.so*
-    - usr/lib/*/libxcb-sync.so*
-    - usr/lib/*/libxcb-xfixes.so*
-    - usr/lib/*/libxshmfence.so*
+  gpu-2404:
+    after: [kodi]
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
+    prime:
+    - bin/gpu-2404-wrapper
