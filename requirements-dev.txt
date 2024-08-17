@@ -1,0 +1,3 @@
+hiyapyco
+mypy
+types-requests

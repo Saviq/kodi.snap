@@ -11,3 +11,29 @@ repos:
   rev: v0.10.0
   hooks:
   - id: shellcheck
+
+- repo: https://github.com/PyCQA/isort
+  rev: 6.0.1
+  hooks:
+  - id: isort
+
+# To run `mypy` meaningfully, we need all dependencies,
+# and run it on all files.
+#
+# Ref.: https://github.com/python/mypy/issues/13916
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.15.0
+  hooks:
+  - id: mypy
+    language: system
+    pass_filenames: false
+    args:
+    - --ignore-missing-imports  # Ref.: https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-library-stubs-or-py-typed-marker
+    - .
+
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.11.0
+  hooks:
+  - id: ruff
+    args: [ --fix ]
+  - id: ruff-format
