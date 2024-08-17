@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${SNAP}/usr/lib/%ARCH_TRIPLET%/samba
+
+mkdir --parents ${XDG_RUNTIME_DIR}
+
+if [ -n "${WAYLAND_DISPLAY:-}" ]; then
+    snapctl is-connected wayland || echo "WARNING: the 'wayland' interface is not connected."
+fi
+
+# if the wayland display isn't absolute, make it so
+if [[ "${WAYLAND_DISPLAY}" != /* ]]; then
+    export WAYLAND_DISPLAY="$( dirname $XDG_RUNTIME_DIR )/${WAYLAND_DISPLAY:-wayland-0}"
+fi
+
+exec "$@"

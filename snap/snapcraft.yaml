@@ -490,6 +490,7 @@ parts:
       craftctl default
       craftctl set version=$( git -C ${CRAFT_PART_SRC} describe --tags )
       awk -i inplace -f ${CRAFT_PROJECT_DIR}/snap/local/alsa.conf.awk ${CRAFT_STAGE}/usr/share/alsa/alsa.conf
+      sed -i 's|Icon=.*|Icon=/usr/share/icons/hicolor/scalable/apps/kodi.svg|g' ${CRAFT_STAGE}/usr/share/applications/kodi.desktop
 
     prime:
     - -usr/lib/*/libcjson_utils.so*
@@ -521,6 +522,13 @@ parts:
       usr/lib/*/lapack/*: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/
       usr/lib/*/pulseaudio/*: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/
 
+  glue:
+    source: glue
+    plugin: nil
+    override-build: |
+      sed "s/%ARCH_TRIPLET%/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/g" ${CRAFT_PART_SRC}/kodi.wrapper.in > ${CRAFT_PART_INSTALL}/kodi.wrapper
+      chmod +x ${CRAFT_PART_INSTALL}/kodi.wrapper
+
   gpu-2404:
     after: [kodi]
     source: https://github.com/canonical/gpu-snap.git
@@ -530,3 +538,33 @@ parts:
       ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
     prime:
     - bin/gpu-2404-wrapper
+
+environment:
+  XKB_CONFIG_ROOT: ${SNAP}/usr/share/X11/xkb
+  XDG_CACHE_HOME:  ${SNAP_USER_COMMON}/.cache
+  XDG_CONFIG_HOME: ${SNAP_USER_DATA}/.config
+  XDG_CONFIG_DIRS: ${SNAP}/etc/xdg
+  XDG_DATA_DIRS:   ${SNAP}/usr/share
+  # ALSA
+  ALSA_CONFIG_DIR: ${SNAP}/usr/share/alsa
+  ALSA_PLUGIN_DIR: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/alsa-lib
+  # Pipewire
+  PIPEWIRE_CONFIG_DIR: ${SNAP}/usr/share/pipewire
+  PIPEWIRE_MODULE_DIR: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/pipewire-0.3
+  SPA_PLUGIN_DIR: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/spa-0.2
+  # Kodi
+  KODI_HOME: ${SNAP}/usr/share/kodi
+  KODI_BIN_HOME: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/kodi
+
+apps:
+  kodi:
+    desktop: usr/share/applications/kodi.desktop
+    plugs:
+    - gpu-2404
+    environment:
+      PULSE_SERVER: unix:$XDG_RUNTIME_DIR/../pulse/native
+      PIPEWIRE_RUNTIME_DIR: $XDG_RUNTIME_DIR/..
+    command-chain:
+    - bin/gpu-2404-wrapper
+    - kodi.wrapper
+    command: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/kodi/kodi.bin
