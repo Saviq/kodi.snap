@@ -32,6 +32,9 @@ description: |
     This will normally be connected to the [`mesa-2404`](https://snapcraft.io/mesa-2404/)
     snap, serving all open source drivers and Nvidia userspace from the host
     system, where possible.
+  - `ffmpeg-2404`
+    This gives Kodi access to the latest FFmpeg for media decoding capabilities.
+    See upstream [ffmpeg-2404](https://snapcraft.io/ffmpeg-2404) for more.
 
 icon: snap/gui/kodi.svg
 website: https://kodi.tv/
@@ -61,6 +64,10 @@ layout:
     symlink: $SNAP/gpu-2404/X11/XErrorDB
 
 plugs:
+  ffmpeg-2404:
+    interface: content
+    target: $SNAP/ffmpeg-2404
+    default-provider: ffmpeg-2404
   gpu-2404:
     interface: content
     target: $SNAP/gpu-2404
@@ -98,6 +105,15 @@ parts:
     source: https://github.com/xbmc/xbmc.git
     source-tag: 21.1-Omega
     source-depth: 1
+
+    override-pull: &patch |
+      craftctl default
+      for patch in ${CRAFT_PROJECT_DIR}/patches/${CRAFT_PART_NAME}/*; do
+        patch --directory ${CRAFT_PART_SRC} --input "${patch}" --strip 1
+      done
+
+    build-snaps: &ffmpeg-build-snaps
+    - ffmpeg-2404-sdk
 
     build-packages:
     # from https://github.com/xbmc/xbmc/blob/master/docs/README.Ubuntu.md
@@ -205,13 +221,6 @@ parts:
     - libcap-dev
     - libsndio-dev
 
-    # libav
-    - libavcodec-dev
-    - libavfilter-dev
-    - libavformat-dev
-    - libswscale-dev
-    - libpostproc-dev
-
     # gbm support
     - libgbm-dev
     - libinput-dev
@@ -230,6 +239,9 @@ parts:
     - lld
     - ccache
 
+    build-environment: &ffmpeg-build-env
+    - INCLUDE: /snap/ffmpeg-2404-sdk/current/usr/include
+    - PKG_CONFIG_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
     plugin: cmake
     cmake-generator: Ninja
     cmake-parameters:
@@ -323,27 +335,16 @@ parts:
     - libaom3
     - libasound2t64
     - libasound2-plugins
-    - libass9
     - libasyncns0
     - libavahi-client3
     - libavahi-common3
-    - libavcodec60
-    - libavfilter9
-    - libavformat60
-    - libavutil58
-    - libblas3
     - libbluetooth3
-    - libbluray2
     - libbs2b0
     - libcairo-gobject2
     - libcairo2
-    - libcdio19t64
     - libcec6
-    - libchromaprint1
-    - libcjson1
     - libcodec2-1.2
     - libcrossguid0
-    - libcurl4t64
     - libdatrie1
     - libdav1d7
     - libegl1
@@ -352,10 +353,8 @@ parts:
     - libflite1
     - libfmt9
     - libfontconfig1
-    - libfribidi0
     - libfstrcmp0
     - libgdk-pixbuf-2.0-0
-    - libgfortran5
     - libgif7
     - libglvnd0
     - libgme0
@@ -372,18 +371,14 @@ parts:
     - libjpeg-turbo8
     - libjxl0.7
     - libkissfft-float131
-    - liblapack3
     - liblcms2-2
     - libldap2
     - libldb2
-    - liblilv-0-0
     - liblirc-client0t64
-    - libmbedcrypto7t64
     - libmicrohttpd12t64
     - libmp3lame0
     - libmpg123-0t64
     - libmtdev1t64
-    - libmysofa1
     - libmysqlclient21
     - libnfs14
     - libnghttp2-14
@@ -402,43 +397,30 @@ parts:
     - libpipewire-0.3-0t64
     - libpipewire-0.3-modules
     - libpixman-1-0
-    - libplacebo338
     - libplist-2.0-4
-    - libpocketsphinx3
-    - libpostproc57
     - libpsl5t64
     - libpulse0
     - libpython3.12t64
-    - librabbitmq4
     - librav1e0
     - librav1e0
-    - librist4
     - librsvg2-2
     - librtmp1
     - librubberband2
     - libsamplerate0
     - libsasl2-2
-    - libserd-0-0
     - libshairplay0
     - libsharpyuv0
     - libshine3
     - libsmbclient0
     - libsnappy1v5
     - libsndfile1
-    - libsndio7.0
     - libsodium23
-    - libsord-0-0
     - libsoxr0
     - libspdlog1.12
     - libspeex1
-    - libsphinxbase3t64
-    - libsratom-0-0
-    - libsrt1.5-gnutls
     - libssh-4
     - libssh-gcrypt-4
     - libsvtav1enc1d1
-    - libswresample4
-    - libswscale7
     - libtag1v5-vanilla
     - libtalloc2
     - libtdb1
@@ -447,9 +429,7 @@ parts:
     - libtinyxml2-10
     - libtinyxml2.6.2v5
     - libtwolame0
-    - libudfread0
     - libunibreak5
-    - libvidstab1.1
     - libvorbis0a
     - libvorbisenc2
     - libvorbisfile3
@@ -466,7 +446,6 @@ parts:
     - libwebpmux3
     - libx11-6
     - libx11-xcb1
-    - libx264-164
     - libx265-199
     - libxau6
     - libxcb-dri3-0
@@ -479,8 +458,6 @@ parts:
     - libxrender1
     - libxslt1.1
     - libxvidcore4
-    - libzimg2
-    - libzix-0-0
     - libzmq5
     - libzvbi0t64
     - ocl-icd-libopencl1
@@ -494,7 +471,6 @@ parts:
       sed -i 's|Icon=.*|Icon=/usr/share/icons/hicolor/scalable/apps/kodi.svg|g' ${CRAFT_STAGE}/usr/share/applications/kodi.desktop
 
     prime:
-    - -usr/lib/*/libcjson_utils.so*
     - -usr/lib/*/libdcerpc-server.so*
     - -usr/lib/*/libdconf.so*
     - -usr/lib/*/libexslt.so*
@@ -511,7 +487,6 @@ parts:
     - -usr/lib/*/libjackserver.so*
     - -usr/lib/*/libnetapi.so*
     - -usr/lib/*/libpcreposix.so*
-    - -usr/lib/*/libsphinxad.so*
     - -usr/lib/*/libtheora.so*
     - -usr/lib/*/libunwind-coredump.so*
     - -usr/lib/*/libunwind-ptrace.so*
@@ -519,8 +494,6 @@ parts:
     - -usr/lib/*/libwayland-client-unstable++.so*
     - -usr/lib/*/libzvbi-chains.so*
     organize:
-      usr/lib/*/blas/*: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/
-      usr/lib/*/lapack/*: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/
       usr/lib/*/pulseaudio/*: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/
 
   glue:
@@ -539,6 +512,20 @@ parts:
       ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
     prime:
     - bin/gpu-2404-wrapper
+
+  cleanup:
+    after: [gpu-2404]
+    build-snaps:
+    - core24
+    - ffmpeg-2404-sdk
+    plugin: nil
+    override-prime: |
+      set -eux
+      for snap in core24 ffmpeg-2404-sdk; do
+        cd /snap/${snap}/current
+        find . -type f,l -exec rm -f ${CRAFT_PRIME}/{} \;
+      done
+      find ${CRAFT_PRIME} -empty -type d -delete
 
   audiodecoder.nosefart:
     build-packages:
@@ -626,6 +613,11 @@ parts:
     - INCLUDE: ${CRAFT_STAGE}/usr/include
     - LIB: ${CRAFT_STAGE}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}
 
+  inputstream.ffmpegdirect:
+    override-pull: *patch
+    build-snaps: *ffmpeg-build-snaps
+    build-environment: *ffmpeg-build-env
+
   inputstream.rtmp:
     build-packages:
     - librtmp-dev
@@ -688,6 +680,7 @@ apps:
   kodi:
     desktop: usr/share/applications/kodi.desktop
     plugs:
+    - ffmpeg-2404
     - gpu-2404
     environment:
       PULSE_SERVER: unix:$XDG_RUNTIME_DIR/../pulse/native
