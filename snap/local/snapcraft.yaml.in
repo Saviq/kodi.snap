@@ -25,6 +25,10 @@ description: |
 
   \#\# Interfaces:
 
+  These give Kodi access to different system resources. You can decide, which
+  accesses you want to allow.
+  See more on [Snap interfaces documentation](https://snapcraft.io/docs/interfaces).
+
   - `gpu-2404`
     Provides the userspace GPU drivers, enabling rendering and video decoding
     acceleration. See [The gpu-2404 snap interface](https://mir-server.io/docs/the-gpu-2404-snap-interface)
@@ -32,9 +36,49 @@ description: |
     This will normally be connected to the [`mesa-2404`](https://snapcraft.io/mesa-2404/)
     snap, serving all open source drivers and Nvidia userspace from the host
     system, where possible.
+
   - `ffmpeg-2404`
     This gives Kodi access to the latest FFmpeg for media decoding capabilities.
     See upstream [ffmpeg-2404](https://snapcraft.io/ffmpeg-2404) for more.
+
+  - `alsa`
+    `audio-playback`
+    `jack1`
+    Audio playback subsystems.
+
+  - `opengl`
+    `wayland`
+    `x11`
+    Graphics hardware and the respective windowing systems.
+
+  - `joystick`
+    `raw-input`
+    `raw-usb`
+    Input devices, at least `raw-input` is required for operation without a
+    display server (using the gbm backend).
+
+  - `mount-observe`
+    `optical-drive`
+    `removable-media`
+    `udisks2`
+    External storage.
+
+  - `home`
+    The running user's home folder (except for hidden folders).
+
+  - `avahi-control`
+    Broadcast Kodi services on the local network for e.g. remote control.
+
+  - `network`
+    `network-bind`
+    Access and expose services on the network.
+
+  - `shutdown`
+    Power the system down.
+
+  - `hardware-observe`
+    `upower-observe`
+    Enumerate hardware and power properties of the system.
 
 icon: snap/gui/kodi.svg
 website: https://kodi.tv/
@@ -53,7 +97,7 @@ contact:
 license: GPL-2.0-or-later
 
 grade: devel
-confinement: devmode
+confinement: strict
 
 layout:
   /usr/share/libdrm:
@@ -680,8 +724,28 @@ apps:
   kodi:
     desktop: usr/share/applications/kodi.desktop
     plugs:
+    - alsa
+    - audio-playback
+    - avahi-control
     - ffmpeg-2404
     - gpu-2404
+    - hardware-observe
+    - home
+    - jack1
+    - joystick
+    - mount-observe
+    - network
+    - network-bind
+    - opengl
+    - optical-drive
+    - raw-input
+    - raw-usb
+    - removable-media
+    - shutdown
+    - udisks2
+    - upower-observe
+    - wayland
+    - x11
     environment:
       PULSE_SERVER: unix:$XDG_RUNTIME_DIR/../pulse/native
       PIPEWIRE_RUNTIME_DIR: $XDG_RUNTIME_DIR/..
