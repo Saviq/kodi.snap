@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${SNAP}/usr/lib/%ARCH_TRIPLET%/samba
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${SNAP}/ffmpeg-2404/usr/lib/%ARCH_TRIPLET%:${SNAP}/usr/lib/%ARCH_TRIPLET%/samba
 
 mkdir --parents "${XDG_RUNTIME_DIR}"
 
