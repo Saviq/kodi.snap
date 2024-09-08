@@ -1488,6 +1488,10 @@ parts:
       sed -i ''s|Icon=.*|Icon=/usr/share/icons/hicolor/scalable/apps/kodi.svg|g''
       ${CRAFT_PRIME}/usr/share/applications/kodi.desktop
 
+      awk -i inplace -f ${CRAFT_PROJECT_DIR}/snap/local/kodi.session.awk ${CRAFT_PRIME}/usr/share/wayland-sessions/kodi-gbm.desktop
+
+      awk -i inplace -f ${CRAFT_PROJECT_DIR}/snap/local/kodi.session.awk ${CRAFT_PRIME}/usr/share/xsessions/kodi.desktop
+
       '
   glue:
     source: glue
@@ -1542,7 +1546,13 @@ description: "Kodi is an award-winning free and open source software media playe
   \ folders).\n\n- `avahi-control`\n  Broadcast Kodi services on the local network\
   \ for e.g. remote control.\n\n- `network`\n  `network-bind`\n  Access and expose\
   \ services on the network.\n\n- `shutdown`\n  Power the system down.\n\n- `hardware-observe`\n\
-  \  `upower-observe`\n  Enumerate hardware and power properties of the system.\n"
+  \  `upower-observe`\n  Enumerate hardware and power properties of the system.\n\n\
+  \\#\\# Desktop sessions:\n\nTo use Kodi as your login session,\n\n```\nsnap connect\
+  \ kodi:desktop-sessions\nsnap connect kodi:login-session-control\nsnap connect kodi:raw-input\n\
+  ```\n\nThis allows you to select Kodi when logging in to your machine. This reduces\n\
+  resource usage, as Kodi is the only application running. You need the\n`raw-input`\
+  \ interface connected as well and permissions to access\n`/dev/input` devices (usually\
+  \ through membership of the `input` group) to\ncontrol it with keyboard and mice.\n"
 icon: snap/gui/kodi.svg
 website: https://kodi.tv/
 donation:
@@ -1568,6 +1578,11 @@ layout:
   /usr/share/X11/XErrorDB:
     symlink: $SNAP/gpu-2404/X11/XErrorDB
 plugs:
+  desktop-session:
+    interface: system-files
+    write:
+    - /var/lib/snapd/hostfs/usr/share/wayland-sessions/snap.kodi.desktop
+    - /var/lib/snapd/hostfs/usr/share/xsessions/snap.kodi.desktop
   ffmpeg-2404:
     interface: content
     target: $SNAP/ffmpeg-2404
@@ -1602,6 +1617,7 @@ apps:
     - home
     - jack1
     - joystick
+    - login-session-control
     - mount-observe
     - network
     - network-bind

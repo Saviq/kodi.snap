@@ -1,4 +1,7 @@
 {
+  "system-files": {
+    "allow-installation": "true"
+  },
   "shutdown": {
     "allow-installation": "true"
   }

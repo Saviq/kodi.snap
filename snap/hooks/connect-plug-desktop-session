@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+
+# to avoid having a separate `post-refresh` hook
+if snapctl is-connected desktop-session; then
+    [ -z "${SNAP_INSTANCE_KEY}" ] || ( echo "ERROR: desktop-session is not supported in parallel installs" >&2; exit 1 )
+
+    if ! ( snapctl is-connected raw-input && snapctl is-connected login-session-control ); then
+        echo "ERROR: you need both 'raw-input' and 'login-session-control' connected for the session to work, please run:" >&2
+        echo "  sudo snap ${SNAP_INSTANCE_NAME}:raw-input" >&2
+        echo "  sudo snap ${SNAP_INSTANCE_NAME}:login-session-control" >&2
+        exit 1
+    fi
+    cp --force --verbose "${SNAP}/usr/share/wayland-sessions/kodi-gbm.desktop" /var/lib/snapd/hostfs/usr/share/wayland-sessions/snap.kodi.desktop
+    cp --force --verbose "${SNAP}/usr/share/xsessions/kodi.desktop" /var/lib/snapd/hostfs/usr/share/xsessions/snap.kodi.desktop
+fi
