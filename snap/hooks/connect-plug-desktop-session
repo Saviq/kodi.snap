@@ -1,0 +1,8 @@
+#!/bin/sh
+set -xeu
+
+# to avoid having a separate `post-refresh` hook
+if snapctl is-connected desktop-session; then
+    cp --force --verbose ${SNAP}/usr/share/wayland-sessions/kodi-gbm.desktop /var/lib/snapd/hostfs/usr/share/wayland-sessions/snap.kodi.desktop
+    cp --force --verbose ${SNAP}/usr/share/xsessions/kodi.desktop /var/lib/snapd/hostfs/usr/share/xsessions/snap.kodi.desktop
+fi

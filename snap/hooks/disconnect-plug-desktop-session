@@ -1,0 +1,5 @@
+#!/bin/sh
+set -xeu
+
+rm --force --verbose /var/lib/snapd/hostfs/usr/share/wayland-sessions/snap.kodi.desktop
+rm --force --verbose /var/lib/snapd/hostfs/usr/share/xsessions/snap.kodi.desktop
