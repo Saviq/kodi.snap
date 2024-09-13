@@ -1,0 +1,19 @@
+#!/bin/sh
+set -eu
+
+case $( snapctl get daemon ) in
+
+  wayland | gbm)
+    snapctl start --enable "${SNAP_INSTANCE_NAME}.daemon" || /bin/true
+    ;;
+
+  false)
+    snapctl stop --disable "${SNAP_INSTANCE_NAME}.daemon" || /bin/true
+    ;;
+
+  *)
+    echo "ERROR: Supported values for 'daemon': false|gbm|wayland" >&2
+    exit 42
+    ;;
+
+esac
