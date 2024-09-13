@@ -21,6 +21,7 @@ CMAKE_PARAMETERS = {
     "plugin": "cmake",
     "cmake-generator": "Ninja",
     "cmake-parameters": [
+        "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
         "-DCMAKE_INSTALL_PREFIX=/usr",
         "-DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake",
         "-DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/",
@@ -28,8 +29,35 @@ CMAKE_PARAMETERS = {
     ]
 }
 
+PRIME_DEBUGINFO = dedent("""
+    set -euo pipefail
+    craftctl default
+
+    DEBUGINFO="${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id"
+
+    cd ${CRAFT_PART_INSTALL}
+
+    IFS=$'\\n'; for file in $( find . -type f ); do
+      FILE_TYPE="$( file --brief -e apptype -e ascii -e encoding -e cdf -e compress -e tar -- "${file}" )"
+      [[ "${FILE_TYPE}" == *"not stripped" ]] || continue
+      if ! [[ "${FILE_TYPE}" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+) ]]; then
+        ( echo "WARNING: BuildId not found for ${file}")
+        continue
+      fi
+      mkdir --parents "${DEBUGINFO}/${BASH_REMATCH[1]}"
+      debug_file="${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug"
+      objcopy --only-keep-debug --compress-debug-sections "${CRAFT_PRIME}/${file}" "${debug_file}"
+      chmod 644 "${debug_file}"
+      strip --remove-section=.comment --remove-section=.note --strip-unneeded "${file}"
+    done
+""")
+
 source_craft = hiyapyco.load(SOURCE)
-parts = {}
+parts = {
+    "kodi": {
+        "override-prime": PRIME_DEBUGINFO,
+    }
+}
 
 def retrieve_dep(filename, vars, method=requests.get):
     if (r := method((DEPENDENCY_ROOT + filename).format(**vars))) and r.status_code == 200:
@@ -60,6 +88,7 @@ with TemporaryDirectory() as tmp:
                 parts[dep] = {
                     "source": source,
                     **CMAKE_PARAMETERS,
+                    "override-prime": PRIME_DEBUGINFO,
                 }
 
                 if (retrieve_dep("CMakeLists.txt", locals(), requests.head) is not None):
@@ -79,6 +108,7 @@ with TemporaryDirectory() as tmp:
 
             parts[addon] = {
                 **CMAKE_PARAMETERS,
+                "override-prime": PRIME_DEBUGINFO,
                 "after": ["kodi"] + after,
                 "source": f"{repourl}.git",
                 "source-branch": branch,

@@ -4,10 +4,22 @@ parts:
     - curl
     cmake-generator: Unix Makefiles
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     override-pull: '
 
       craftctl default
@@ -22,10 +34,22 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: &id001
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.2sf.git
     source-branch: Omega
@@ -35,6 +59,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.asap.git
     source-branch: Omega
@@ -44,6 +79,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.gme.git
     source-branch: Omega
@@ -53,6 +99,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.gsf.git
     source-branch: Omega
@@ -62,6 +119,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.hvl.git
     source-branch: Omega
@@ -71,6 +139,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.ncsf.git
     source-branch: Omega
@@ -80,10 +159,22 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.nosefart.git
     source-branch: Omega
@@ -97,6 +188,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.openmpt.git
     source-branch: Omega
@@ -106,6 +208,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.organya.git
     source-branch: Omega
@@ -115,6 +228,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.qsf.git
     source-branch: Omega
@@ -124,10 +248,22 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.sacd.git
     source-branch: Omega
@@ -139,10 +275,22 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.sidplay.git
     source-branch: Omega
@@ -161,6 +309,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.snesapu.git
     source-branch: Omega
@@ -170,6 +329,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.ssf.git
     source-branch: Omega
@@ -179,6 +349,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.stsound.git
     source-branch: Omega
@@ -188,6 +369,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.timidity.git
     source-branch: Omega
@@ -197,6 +389,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.upse.git
     source-branch: Omega
@@ -206,6 +409,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.usf.git
     source-branch: Omega
@@ -215,6 +429,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.vgmstream.git
     source-branch: Omega
@@ -224,6 +449,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.wsr.git
     source-branch: Omega
@@ -233,6 +469,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audioencoder.flac.git
     source-branch: Omega
@@ -242,10 +489,22 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audioencoder.lame.git
     source-branch: Omega
@@ -259,6 +518,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audioencoder.vorbis.git
     source-branch: Omega
@@ -268,6 +538,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audioencoder.wav.git
     source-branch: Omega
@@ -275,11 +556,23 @@ parts:
   bento4:
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
     - -DBUILD_APPS=OFF
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/Bento4/archive/refs/tags/1.6.0-641-3-Omega.tar.gz
     source-checksum: sha256/a9b231b63159b3a4d9e47c5328b476308852bf092ccb9ce98f7cf46a386465ce
@@ -291,11 +584,23 @@ parts:
     - rcheevos
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
     - -DRCHEEVOS_LIBRARY=${CRAFT_STAGE}/usr/lib/librcheevoslib.a
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-game/game.libretro.git
     source-branch: Omega
@@ -310,10 +615,22 @@ parts:
     - '2048'
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-game/game.libretro.2048.git
     source-branch: master
@@ -326,10 +643,22 @@ parts:
     - mrboom
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-game/game.libretro.mrboom.git
     source-branch: master
@@ -338,6 +667,7 @@ parts:
     - LIB: ${CRAFT_STAGE}/usr/lib
   gpu-2404:
     after:
+    - kodi
     - kodi
     - audiodecoder.2sf
     - audiodecoder.asap
@@ -441,10 +771,22 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/imagedecoder.heif.git
     source-branch: Omega
@@ -460,6 +802,17 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/imagedecoder.mpo.git
     source-branch: Omega
@@ -469,10 +822,22 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/imagedecoder.raw.git
     source-branch: Omega
@@ -489,10 +854,22 @@ parts:
     - bento4
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/inputstream.adaptive.git
     source-branch: Omega
@@ -509,10 +886,22 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/inputstream.ffmpegdirect.git
     source-branch: Omega
@@ -530,10 +919,22 @@ parts:
     - kodi
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
     - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
     - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/inputstream.rtmp.git
     source-branch: Omega
@@ -542,578 +943,18 @@ parts:
     - librtmp-dev
     stage-packages:
     - librtmp1
-  mrboom:
-    build-packages:
-    - curl
-    cmake-generator: Unix Makefiles
-    cmake-parameters:
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
-    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
-    - -DCORE_SYSTEM_NAME=linux
-    override-pull: '
-
-      craftctl default
-
-      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/kodi-game/game.libretro.mrboom/master/depends/common/mrboom/CMakeLists.txt
-
-      '
-    plugin: cmake
-    source: https://github.com/kodi-game/mrboom-libretro/archive/256caa125cdb94d99eea5a98d6b9bb14f90c34ff.tar.gz
-  peripheral.joystick:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/peripheral.joystick.git
-    source-branch: Omega
-    source-depth: 1
-  peripheral.xarcade:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-game/peripheral.xarcade.git
-    source-branch: Omega
-    source-depth: 1
-  projectm:
-    build-packages:
-    - curl
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    override-pull: '
-
-      craftctl default
-
-      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/xbmc/visualization.projectm/Omega/depends/common/projectm/CMakeLists.txt
-
-      '
-    plugin: cmake
-    source: https://github.com/projectM-visualizer/projectm/releases/download/v3.1.12/projectM-3.1.12.tar.gz
-    source-checksum: sha256/b6b99dde5c8f0822ae362606a0429628ee478f4ec943a156723841b742954707
-  pvr.argustv:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters:
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
-    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
-    - -DCORE_SYSTEM_NAME=linux
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.argustv.git
-    source-branch: Omega
-    source-depth: 1
-    build-packages:
-    - libjsoncpp-dev
-    stage-packages:
-    - libjsoncpp25
-  pvr.demo:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.demo.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.dvblink:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.dvblink.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.dvbviewer:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.dvbviewer.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.filmon:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.filmon.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.freebox:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters:
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
-    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
-    - -DCORE_SYSTEM_NAME=linux
-    plugin: cmake
-    source: https://github.com/aassif/pvr.freebox.git
-    source-branch: Omega
-    source-depth: 1
-    build-packages:
-    - nlohmann-json3-dev
-  pvr.hdhomerun:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters:
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
-    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
-    - -DCORE_SYSTEM_NAME=linux
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.hdhomerun.git
-    source-branch: Omega
-    source-depth: 1
-    build-packages:
-    - libhdhomerun-dev
-    stage-packages:
-    - libhdhomerun5
-  pvr.hts:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.hts.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.iptvsimple:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.iptvsimple.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.mediaportal.tvserver:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.mediaportal.tvserver.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.mythtv:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/janbar/pvr.mythtv.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.nextpvr:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.nextpvr.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.njoy:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.njoy.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.octonet:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/DigitalDevices/pvr.octonet.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.pctv:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.pctv.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.plutotv:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.plutotv.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.sledovanitv.cz:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/palinek/pvr.sledovanitv.cz.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.stalker:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.stalker.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.teleboy:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/rbuehlma/pvr.teleboy.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.vbox:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.vbox.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.vdr.vnsi:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.vdr.vnsi.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.vuplus:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.vuplus.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.waipu:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/flubshi/pvr.waipu.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.wmc:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/kodi-pvr/pvr.wmc.git
-    source-branch: Omega
-    source-depth: 1
-  pvr.zattoo:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/rbuehlma/pvr.zattoo.git
-    source-branch: Omega
-    source-depth: 1
-  rcheevos:
-    build-packages:
-    - curl
-    cmake-generator: Ninja
-    cmake-parameters:
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
-    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
-    - -DCORE_SYSTEM_NAME=linux
-    override-pull: '
-
-      craftctl default
-
-      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/kodi-game/game.libretro/Omega/depends/common/rcheevos/CMakeLists.txt
-
-      '
-    plugin: cmake
-    source: https://github.com/RetroAchievements/rcheevos/archive/v9.2.0.tar.gz
-    source-checksum: sha256/c8ed6ca74f905ea0c256250e46cced579922880001337e7c3d3d68179ad89d4e
-    build-environment:
-    - CFLAGS: -fPIC
-  screensaver.asteroids:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters:
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
-    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
-    - -DCORE_SYSTEM_NAME=linux
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.asteroids.git
-    source-branch: Omega
-    source-depth: 1
-    build-packages:
-    - libglm-dev
-  screensaver.asterwave:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.asterwave.git
-    source-branch: Omega
-    source-depth: 1
-  screensaver.biogenesis:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.biogenesis.git
-    source-branch: Omega
-    source-depth: 1
-  screensaver.cpblobs:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.cpblobs.git
-    source-branch: Omega
-    source-depth: 1
-  screensaver.greynetic:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.greynetic.git
-    source-branch: Omega
-    source-depth: 1
-  screensaver.matrixtrails:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.matrixtrails.git
-    source-branch: Omega
-    source-depth: 1
-  screensaver.pingpong:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.pingpong.git
-    source-branch: Omega
-    source-depth: 1
-  screensaver.pyro:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.pyro.git
-    source-branch: Omega
-    source-depth: 1
-  screensaver.shadertoy:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.shadertoy.git
-    source-branch: Omega
-    source-depth: 1
-  screensaver.stars:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensaver.stars.git
-    source-branch: Omega
-    source-depth: 1
-  screensavers.rsxs:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/screensavers.rsxs.git
-    source-branch: Omega
-    source-depth: 1
-  vfs.libarchive:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters:
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
-    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
-    - -DCORE_SYSTEM_NAME=linux
-    plugin: cmake
-    source: https://github.com/xbmc/vfs.libarchive.git
-    source-branch: Omega
-    source-depth: 1
-    build-packages:
-    - libarchive-dev
-    stage-packages:
-    - libarchive13t64
-  vfs.rar:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/vfs.rar.git
-    source-branch: Omega
-    source-depth: 1
-  vfs.sftp:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters:
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
-    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
-    - -DCORE_SYSTEM_NAME=linux
-    plugin: cmake
-    source: https://github.com/xbmc/vfs.sftp.git
-    source-branch: Omega
-    source-depth: 1
-    build-packages:
-    - libssh-dev
-    stage-packages:
-    - libssh-4
-  visualization.fishbmc:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/visualization.fishbmc.git
-    source-branch: Omega
-    source-depth: 1
-  visualization.goom:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/visualization.goom.git
-    source-branch: Omega
-    source-depth: 1
-  visualization.matrix:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/visualization.matrix.git
-    source-branch: Omega
-    source-depth: 1
-  visualization.pictureit:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/visualization.pictureit.git
-    source-branch: Omega
-    source-depth: 1
-  visualization.projectm:
-    after:
-    - kodi
-    - projectm
-    cmake-generator: Ninja
-    cmake-parameters:
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
-    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
-    - -DCORE_SYSTEM_NAME=linux
-    plugin: cmake
-    source: https://github.com/xbmc/visualization.projectm.git
-    source-branch: Omega
-    source-depth: 1
-  visualization.shadertoy:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/visualization.shadertoy.git
-    source-branch: Omega
-    source-depth: 1
-  visualization.spectrum:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/visualization.spectrum.git
-    source-branch: Omega
-    source-depth: 1
-  visualization.starburst:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/visualization.starburst.git
-    source-branch: Omega
-    source-depth: 1
-  visualization.waveform:
-    after:
-    - kodi
-    cmake-generator: Ninja
-    cmake-parameters: *id001
-    plugin: cmake
-    source: https://github.com/xbmc/visualization.waveform.git
-    source-branch: Omega
-    source-depth: 1
-  displayinfo:
-    source: https://gitlab.freedesktop.org/emersion/libdisplay-info.git
-    source-tag: 0.2.0
-    source-depth: 1
-    build-packages:
-    - hwdata
-    - meson
-    plugin: meson
-    meson-parameters:
-    - --prefix=/usr
-  embed-libs:
-    plugin: nil
-    build-packages:
-    - curl
-    override-pull: "curl --location --output \\\n  ${CRAFT_PART_SRC}/libdvdcss.tar.gz\
-      \ \\\n  https://github.com/xbmc/libdvdcss/archive/1.4.3-Next-Omega-Alpha3.tar.gz\n\
-      curl --location --output \\\n  ${CRAFT_PART_SRC}/libdvdnav.tar.gz \\\n  https://github.com/xbmc/libdvdnav/archive/6.1.1-Next-Nexus-Alpha2-2.tar.gz\n\
-      curl --location --output \\\n  ${CRAFT_PART_SRC}/libdvdread.tar.gz \\\n  https://github.com/xbmc/libdvdread/archive/6.1.3-Next-Nexus-Alpha2-2.tar.gz\n"
   kodi:
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
     after:
     - displayinfo
     - embed-libs
@@ -1241,6 +1082,7 @@ parts:
     plugin: cmake
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCORE_PLATFORM_NAME="x11 wayland gbm"
     - -DAPP_RENDER_SYSTEM=gl
@@ -1493,6 +1335,1169 @@ parts:
     - -usr/lib/*/libzvbi-chains.so*
     organize:
       usr/lib/*/pulseaudio/*: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/
+  mrboom:
+    build-packages:
+    - curl
+    cmake-generator: Unix Makefiles
+    cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    - -DCMAKE_INSTALL_PREFIX=/usr
+    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
+    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
+    - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    override-pull: '
+
+      craftctl default
+
+      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/kodi-game/game.libretro.mrboom/master/depends/common/mrboom/CMakeLists.txt
+
+      '
+    plugin: cmake
+    source: https://github.com/kodi-game/mrboom-libretro/archive/256caa125cdb94d99eea5a98d6b9bb14f90c34ff.tar.gz
+  peripheral.joystick:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/peripheral.joystick.git
+    source-branch: Omega
+    source-depth: 1
+  peripheral.xarcade:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-game/peripheral.xarcade.git
+    source-branch: Omega
+    source-depth: 1
+  projectm:
+    build-packages:
+    - curl
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    override-pull: '
+
+      craftctl default
+
+      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/xbmc/visualization.projectm/Omega/depends/common/projectm/CMakeLists.txt
+
+      '
+    plugin: cmake
+    source: https://github.com/projectM-visualizer/projectm/releases/download/v3.1.12/projectM-3.1.12.tar.gz
+    source-checksum: sha256/b6b99dde5c8f0822ae362606a0429628ee478f4ec943a156723841b742954707
+  pvr.argustv:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    - -DCMAKE_INSTALL_PREFIX=/usr
+    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
+    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
+    - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.argustv.git
+    source-branch: Omega
+    source-depth: 1
+    build-packages:
+    - libjsoncpp-dev
+    stage-packages:
+    - libjsoncpp25
+  pvr.demo:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.demo.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.dvblink:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.dvblink.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.dvbviewer:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.dvbviewer.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.filmon:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.filmon.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.freebox:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    - -DCMAKE_INSTALL_PREFIX=/usr
+    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
+    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
+    - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/aassif/pvr.freebox.git
+    source-branch: Omega
+    source-depth: 1
+    build-packages:
+    - nlohmann-json3-dev
+  pvr.hdhomerun:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    - -DCMAKE_INSTALL_PREFIX=/usr
+    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
+    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
+    - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.hdhomerun.git
+    source-branch: Omega
+    source-depth: 1
+    build-packages:
+    - libhdhomerun-dev
+    stage-packages:
+    - libhdhomerun5
+  pvr.hts:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.hts.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.iptvsimple:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.iptvsimple.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.mediaportal.tvserver:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.mediaportal.tvserver.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.mythtv:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/janbar/pvr.mythtv.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.nextpvr:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.nextpvr.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.njoy:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.njoy.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.octonet:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/DigitalDevices/pvr.octonet.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.pctv:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.pctv.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.plutotv:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.plutotv.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.sledovanitv.cz:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/palinek/pvr.sledovanitv.cz.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.stalker:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.stalker.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.teleboy:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/rbuehlma/pvr.teleboy.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.vbox:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.vbox.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.vdr.vnsi:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.vdr.vnsi.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.vuplus:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.vuplus.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.waipu:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/flubshi/pvr.waipu.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.wmc:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/kodi-pvr/pvr.wmc.git
+    source-branch: Omega
+    source-depth: 1
+  pvr.zattoo:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/rbuehlma/pvr.zattoo.git
+    source-branch: Omega
+    source-depth: 1
+  rcheevos:
+    build-packages:
+    - curl
+    cmake-generator: Ninja
+    cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    - -DCMAKE_INSTALL_PREFIX=/usr
+    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
+    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
+    - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    override-pull: '
+
+      craftctl default
+
+      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/kodi-game/game.libretro/Omega/depends/common/rcheevos/CMakeLists.txt
+
+      '
+    plugin: cmake
+    source: https://github.com/RetroAchievements/rcheevos/archive/v9.2.0.tar.gz
+    source-checksum: sha256/c8ed6ca74f905ea0c256250e46cced579922880001337e7c3d3d68179ad89d4e
+    build-environment:
+    - CFLAGS: -fPIC
+  screensaver.asteroids:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    - -DCMAKE_INSTALL_PREFIX=/usr
+    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
+    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
+    - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.asteroids.git
+    source-branch: Omega
+    source-depth: 1
+    build-packages:
+    - libglm-dev
+  screensaver.asterwave:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.asterwave.git
+    source-branch: Omega
+    source-depth: 1
+  screensaver.biogenesis:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.biogenesis.git
+    source-branch: Omega
+    source-depth: 1
+  screensaver.cpblobs:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.cpblobs.git
+    source-branch: Omega
+    source-depth: 1
+  screensaver.greynetic:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.greynetic.git
+    source-branch: Omega
+    source-depth: 1
+  screensaver.matrixtrails:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.matrixtrails.git
+    source-branch: Omega
+    source-depth: 1
+  screensaver.pingpong:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.pingpong.git
+    source-branch: Omega
+    source-depth: 1
+  screensaver.pyro:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.pyro.git
+    source-branch: Omega
+    source-depth: 1
+  screensaver.shadertoy:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.shadertoy.git
+    source-branch: Omega
+    source-depth: 1
+  screensaver.stars:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensaver.stars.git
+    source-branch: Omega
+    source-depth: 1
+  screensavers.rsxs:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/screensavers.rsxs.git
+    source-branch: Omega
+    source-depth: 1
+  vfs.libarchive:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    - -DCMAKE_INSTALL_PREFIX=/usr
+    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
+    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
+    - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/vfs.libarchive.git
+    source-branch: Omega
+    source-depth: 1
+    build-packages:
+    - libarchive-dev
+    stage-packages:
+    - libarchive13t64
+  vfs.rar:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/vfs.rar.git
+    source-branch: Omega
+    source-depth: 1
+  vfs.sftp:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    - -DCMAKE_INSTALL_PREFIX=/usr
+    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
+    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
+    - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/vfs.sftp.git
+    source-branch: Omega
+    source-depth: 1
+    build-packages:
+    - libssh-dev
+    stage-packages:
+    - libssh-4
+  visualization.fishbmc:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/visualization.fishbmc.git
+    source-branch: Omega
+    source-depth: 1
+  visualization.goom:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/visualization.goom.git
+    source-branch: Omega
+    source-depth: 1
+  visualization.matrix:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/visualization.matrix.git
+    source-branch: Omega
+    source-depth: 1
+  visualization.pictureit:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/visualization.pictureit.git
+    source-branch: Omega
+    source-depth: 1
+  visualization.projectm:
+    after:
+    - kodi
+    - projectm
+    cmake-generator: Ninja
+    cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    - -DCMAKE_INSTALL_PREFIX=/usr
+    - -DCMAKE_MODULE_PATH=${CRAFT_STAGE}/usr/share/kodi/cmake
+    - -DKODI_INCLUDE_DIR=${CRAFT_STAGE}/usr/include/kodi/
+    - -DCORE_SYSTEM_NAME=linux
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/visualization.projectm.git
+    source-branch: Omega
+    source-depth: 1
+  visualization.shadertoy:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/visualization.shadertoy.git
+    source-branch: Omega
+    source-depth: 1
+  visualization.spectrum:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/visualization.spectrum.git
+    source-branch: Omega
+    source-depth: 1
+  visualization.starburst:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/visualization.starburst.git
+    source-branch: Omega
+    source-depth: 1
+  visualization.waveform:
+    after:
+    - kodi
+    cmake-generator: Ninja
+    cmake-parameters: *id001
+    override-prime: "\nset -euo pipefail\ncraftctl default\n\nDEBUGINFO=\"${CRAFT_COMPONENT_DEBUG_PRIME}/debug/.build-id\"\
+      \n\ncd ${CRAFT_PART_INSTALL}\n\nIFS=$'\\n'; for file in $( find . -type f );\
+      \ do\n  FILE_TYPE=\"$( file --brief -e apptype -e ascii -e encoding -e cdf -e\
+      \ compress -e tar -- \"${file}\" )\"\n  [[ \"${FILE_TYPE}\" == *\"not stripped\"\
+      \ ]] || continue\n  if ! [[ \"${FILE_TYPE}\" =~ BuildID\\[[^\\]]+\\]=([0-9a-f]{2})([0-9a-f]+)\
+      \ ]]; then\n    ( echo \"WARNING: BuildId not found for ${file}\")\n    continue\n\
+      \  fi\n  mkdir --parents \"${DEBUGINFO}/${BASH_REMATCH[1]}\"\n  debug_file=\"\
+      ${DEBUGINFO}/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}.debug\"\n  objcopy --only-keep-debug\
+      \ --compress-debug-sections \"${CRAFT_PRIME}/${file}\" \"${debug_file}\"\n \
+      \ chmod 644 \"${debug_file}\"\n  strip --remove-section=.comment --remove-section=.note\
+      \ --strip-unneeded \"${file}\"\ndone\n"
+    plugin: cmake
+    source: https://github.com/xbmc/visualization.waveform.git
+    source-branch: Omega
+    source-depth: 1
+  displayinfo:
+    source: https://gitlab.freedesktop.org/emersion/libdisplay-info.git
+    source-tag: 0.2.0
+    source-depth: 1
+    build-packages:
+    - hwdata
+    - meson
+    plugin: meson
+    meson-parameters:
+    - --prefix=/usr
+  embed-libs:
+    plugin: nil
+    build-packages:
+    - curl
+    override-pull: "curl --location --output \\\n  ${CRAFT_PART_SRC}/libdvdcss.tar.gz\
+      \ \\\n  https://github.com/xbmc/libdvdcss/archive/1.4.3-Next-Omega-Alpha3.tar.gz\n\
+      curl --location --output \\\n  ${CRAFT_PART_SRC}/libdvdnav.tar.gz \\\n  https://github.com/xbmc/libdvdnav/archive/6.1.1-Next-Nexus-Alpha2-2.tar.gz\n\
+      curl --location --output \\\n  ${CRAFT_PART_SRC}/libdvdread.tar.gz \\\n  https://github.com/xbmc/libdvdread/archive/6.1.3-Next-Nexus-Alpha2-2.tar.gz\n"
   glue:
     source: glue
     plugin: nil
@@ -1590,6 +2595,24 @@ plugs:
     interface: content
     target: $SNAP/gpu-2404
     default-provider: mesa-2404
+components:
+  debug:
+    type: test
+    summary: Debugging symbols and tools
+    version: 21.1-Omega
+    description: 'This component includes the debug symbols stripped from the ELF
+      files built
+
+      in this snap. Install it and point gdb at `/snap/kodi/current/debug` to
+
+      get symbolic stack traces.
+
+
+      For dependency symbols it''s recommended to use debuginfod:
+
+      https://ubuntu.com/server/docs/service-debuginfod
+
+      '
 environment:
   XKB_CONFIG_ROOT: ${SNAP}/usr/share/X11/xkb
   XDG_CACHE_HOME: ${SNAP_USER_COMMON}/.cache

@@ -132,6 +132,19 @@ plugs:
     target: $SNAP/gpu-2404
     default-provider: mesa-2404
 
+components:
+  debug:
+    type: test
+    summary: Debugging symbols and tools
+    version: 21.1-Omega
+    description: |
+      This component includes the debug symbols stripped from the ELF files built
+      in this snap. Install it and point gdb at `/snap/kodi/current/debug` to
+      get symbolic stack traces.
+
+      For dependency symbols it's recommended to use debuginfod:
+      https://ubuntu.com/server/docs/service-debuginfod
+
 parts:
   displayinfo:
     source: https://gitlab.freedesktop.org/emersion/libdisplay-info.git
@@ -304,6 +317,7 @@ parts:
     plugin: cmake
     cmake-generator: Ninja
     cmake-parameters:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     - -DCMAKE_INSTALL_PREFIX=/usr
     - -DCORE_PLATFORM_NAME="x11 wayland gbm"
     - -DAPP_RENDER_SYSTEM=gl
