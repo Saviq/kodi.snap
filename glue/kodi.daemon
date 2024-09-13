@@ -1,0 +1,62 @@
+#!/bin/sh
+
+set -eu
+
+DAEMON_MODE="$( snapctl get daemon )"
+
+wait_for()
+{
+  until
+    until
+      inotifywait --event create "$(dirname "$1")"&
+      inotify_pid=$!
+      [ -e "$1" ] || sleep 2 && [ -e "$1" ]
+    do
+      wait "${inotify_pid}"
+    done
+    kill "${inotify_pid}"
+    [ -O "$1" ]
+  do
+    sleep 1
+  done
+}
+
+check_interfaces()
+{
+    error=false
+    level=$1
+    shift
+    for interface in "$@"; do
+        if ! snapctl is-connected ${interface}; then
+            echo "${level}: snap interface ${interface} not connected, run:" >&2
+            echo "  sudo snap connect ${SNAP_INSTANCE_NAME}:${interface}"
+            error=true
+        fi
+    done
+    [ "$level" = "ERROR" ] && $error && exit 43 || return 0
+}
+
+case "${DAEMON_MODE}" in
+  wayland)
+    check_interfaces ERROR opengl wayland
+    real_xdg_runtime_dir=$(dirname "${XDG_RUNTIME_DIR}")
+    export WAYLAND_DISPLAY="${real_xdg_runtime_dir}/${WAYLAND_DISPLAY:-wayland-0}"
+
+    # On Core systems may need to wait for real XDG_RUNTIME_DIR
+    wait_for "${real_xdg_runtime_dir}"
+    wait_for "${WAYLAND_DISPLAY}"
+    ;;
+
+  gbm)
+    check_interfaces ERROR opengl raw-input
+    ;;
+
+  *)
+    echo "ERROR: Unsupported daemon mode: ${DAEMON_MODE}" >&2
+    exit 42
+    ;;
+esac
+
+check_interfaces INFO alsa audio-playback pulseaudio
+
+exec "$@" -fs --standalone --windowing=${DAEMON_MODE}

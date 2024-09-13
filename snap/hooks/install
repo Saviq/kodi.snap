@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ -n "$( snapctl get daemon )" ] || snapctl set daemon=false

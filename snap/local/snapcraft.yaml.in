@@ -90,6 +90,13 @@ description: |
   `/dev/input` devices (usually through membership of the `input` group) to
   control it with keyboard and mice.
 
+  \#\# Configuration options:
+
+  - `daemon`
+    One of `{false,gbm,wayland}`, making Kodi start up on boot. The `wayland`
+    mode is geared at usage with a Wayland compositor running as a daemon
+    as well - for example [Ubuntu Frame](https://snapcraft.io/ubuntu-frame).
+
 icon: snap/gui/kodi.svg
 website: https://kodi.tv/
 donation:
@@ -574,9 +581,12 @@ parts:
   glue:
     source: glue
     plugin: nil
+    stage-packages:
+    - inotify-tools
     override-build: |
       sed "s/%ARCH_TRIPLET%/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/g" ${CRAFT_PART_SRC}/kodi.wrapper.in > ${CRAFT_PART_INSTALL}/kodi.wrapper
       chmod +x ${CRAFT_PART_INSTALL}/kodi.wrapper
+      install -m 555 ${CRAFT_PART_SRC}/kodi.daemon ${CRAFT_PART_INSTALL}
 
   gpu-2404:
     after: [kodi]
@@ -752,7 +762,7 @@ environment:
   KODI_BIN_HOME: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/kodi
 
 apps:
-  kodi:
+  kodi: &kodi
     desktop: usr/share/applications/kodi.desktop
     plugs:
     - alsa
@@ -769,6 +779,7 @@ apps:
     - network-bind
     - opengl
     - optical-drive
+    - pulseaudio
     - raw-input
     - raw-usb
     - removable-media
@@ -784,3 +795,15 @@ apps:
     - bin/gpu-2404-wrapper
     - kodi.wrapper
     command: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/kodi/kodi.bin
+
+  daemon:
+    <<: *kodi
+    daemon: simple
+    restart-condition: always
+    environment:
+      PULSE_SYSTEM: "1"
+      PULSE_RUNTIME_PATH: /var/run/pulse
+    command-chain:
+    - bin/gpu-2404-wrapper
+    - kodi.daemon
+    - kodi.wrapper
