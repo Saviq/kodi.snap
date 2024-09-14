@@ -39,3 +39,12 @@ repos:
   - id: ruff
     args: [ --fix ]
   - id: ruff-format
+
+- repo: https://github.com/executablebooks/mdformat
+  rev: 0.7.22
+  hooks:
+  - id: mdformat
+    additional_dependencies:
+    - mdformat-black
+    - mdformat-gfm
+    - mdformat-myst
