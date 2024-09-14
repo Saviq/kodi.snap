@@ -152,6 +152,11 @@ components:
       For dependency symbols it's recommended to use debuginfod:
       https://ubuntu.com/server/docs/service-debuginfod
 
+platforms:
+  amd64:
+  arm64:
+  armhf:
+
 parts:
   displayinfo:
     source: https://gitlab.freedesktop.org/emersion/libdisplay-info.git
@@ -233,8 +238,6 @@ parts:
     - libfstrcmp-dev
     - libgcrypt20-dev
     - libgif-dev
-    - libgles2-mesa-dev
-    - libgl1-mesa-dev
     - libglu1-mesa-dev
     - libgnutls28-dev
     - libgpg-error-dev
@@ -315,103 +318,121 @@ parts:
     - libpipewire-0.3-dev
 
     # build tools
-    - lld
+    - mold
     - ccache
+    - cmake
+    - gcc
+    - ninja-build
+
+    # GL / GLES
+    - to amd64:
+      - libgl1-mesa-dev
+    - to arm64:
+      - libgles2-mesa-dev
+    - to armhf:
+      - libgles2-mesa-dev
 
     build-environment: &ffmpeg-build-env
+    - CMAKE_PREFIX_PATH: ${CRAFT_STAGE}
     - INCLUDE: /snap/ffmpeg-2404-sdk/current/usr/include
     - PKG_CONFIG_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
-    plugin: cmake
-    cmake-generator: Ninja
-    cmake-parameters:
-    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-    - -DCMAKE_INSTALL_PREFIX=/usr
-    - -DCORE_PLATFORM_NAME="x11 wayland gbm"
-    - -DAPP_RENDER_SYSTEM=gl
-    - -DADDONS_CONFIGURE_AT_STARTUP=OFF
-    - -DVERBOSE=1
+    plugin: nil
+    override-build:
+      cmake ${CRAFT_PART_SRC} -B ${CRAFT_PART_BUILD} -G Ninja
+      -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      -DCMAKE_INSTALL_PREFIX=/usr
+      -DCORE_PLATFORM_NAME="x11 wayland gbm"
+      -DAPP_RENDER_SYSTEM="$( [[ "${CRAFT_ARCH_BUILD_FOR}" == arm* ]] && echo gl || echo gles )"
+      -DADDONS_CONFIGURE_AT_STARTUP=OFF
+      -DVERBOSE=1 \
 
-    - -DENABLE_AIRTUNES=ON
-    - -DENABLE_ALSA=ON
-    - -DENABLE_ATOMIC=ON
-    - -DENABLE_AVAHI=ON
-    - -DENABLE_AVX2=ON
-    - -DENABLE_AVX=ON
-    - -DENABLE_BLUETOOTH=ON
-    - -DENABLE_BLURAY=ON
-    - -DENABLE_CAP=ON
-    - -DENABLE_CEC=ON
-    - -DENABLE_DAV1D=ON
-    - -DENABLE_DBUS=ON
-    - -DENABLE_DEBUGFISSION=ON
-    - -DENABLE_DVDCSS=ON
-    - -DENABLE_EGL=ON
-    - -DENABLE_EVENTCLIENTS=ON
-    - -DENABLE_GBM=ON
-    - -DENABLE_GLX=ON
-    - -DENABLE_ISO9660PP=ON
-    - -DENABLE_LCMS2=ON
-    - -DENABLE_LIBDISPLAYINFO=ON
-    - -DENABLE_LIBDRM=ON
-    - -DENABLE_LIBINPUT=ON
-    - -DENABLE_LIRCCLIENT=ON
-    - -DENABLE_MICROHTTPD=ON
-    - -DENABLE_MYSQLCLIENT=ON
-    - -DENABLE_NFS=ON
-    - -DENABLE_OPENGL=ON
-    - -DENABLE_OPTICAL=ON
-    - -DENABLE_PIPEWIRE=ON
-    - -DENABLE_PLIST=ON
-    - -DENABLE_PULSEAUDIO=ON
-    - -DENABLE_PYTHON=ON
-    - -DENABLE_SMBCLIENT=ON
-    - -DENABLE_SNDIO=ON
-    - -DENABLE_UDEV=ON
-    - -DENABLE_UDFREAD=ON
-    - -DENABLE_UPNP=ON
-    - -DENABLE_VAAPI=ON
-    - -DENABLE_VDPAU=ON
-    - -DENABLE_WAYLANDPP=ON
-    - -DENABLE_WAYLANDPROTOCOLS=ON
-    - -DENABLE_X=ON
-    - -DENABLE_XKBCOMMON=ON
-    - -DENABLE_XRANDR=ON
-    - -DENABLE_XSLT=ON
+      -DENABLE_AIRTUNES=ON
+      -DENABLE_ALSA=ON
+      -DENABLE_ATOMIC=ON
+      -DENABLE_AVAHI=ON
+      -DENABLE_AVX2=ON
+      -DENABLE_AVX=ON
+      -DENABLE_BLUETOOTH=ON
+      -DENABLE_BLURAY=ON
+      -DENABLE_CAP=ON
+      -DENABLE_CEC=ON
+      -DENABLE_DAV1D=ON
+      -DENABLE_DBUS=ON
+      -DENABLE_DEBUGFISSION=ON
+      -DENABLE_DVDCSS=ON
+      -DENABLE_EGL=ON
+      -DENABLE_EVENTCLIENTS=ON
+      -DENABLE_GBM=ON
+      -DENABLE_GLX=ON
+      -DENABLE_ISO9660PP=ON
+      -DENABLE_LCMS2=ON
+      -DENABLE_LIBDISPLAYINFO=ON
+      -DENABLE_LIBDRM=ON
+      -DENABLE_LIBINPUT=ON
+      -DENABLE_LIRCCLIENT=ON
+      -DENABLE_MICROHTTPD=ON
+      -DENABLE_MYSQLCLIENT=ON
+      -DENABLE_NFS=ON
+      -DENABLE_OPENGL=ON
+      -DENABLE_OPTICAL=ON
+      -DENABLE_PIPEWIRE=ON
+      -DENABLE_PLIST=ON
+      -DENABLE_PULSEAUDIO=ON
+      -DENABLE_PYTHON=ON
+      -DENABLE_SMBCLIENT=ON
+      -DENABLE_SNDIO=ON
+      -DENABLE_UDEV=ON
+      -DENABLE_UDFREAD=ON
+      -DENABLE_UPNP=ON
+      -DENABLE_VAAPI=ON
+      -DENABLE_VDPAU=ON
+      -DENABLE_WAYLANDPP=ON
+      -DENABLE_WAYLANDPROTOCOLS=ON
+      -DENABLE_X=ON
+      -DENABLE_XKBCOMMON=ON
+      -DENABLE_XRANDR=ON
+      -DENABLE_XSLT=ON \
 
-    - -DENABLE_CCACHE=ON
-    - -DENABLE_LLD=ON
+      -DENABLE_CCACHE=ON
+      -DENABLE_GOLD=OFF
+      -DENABLE_LLD=OFF
+      -DENABLE_MOLD=ON \
 
-    - -DENABLE_CLANGTIDY=OFF
-    - -DENABLE_CPPCHECK=OFF
-    - -DENABLE_GOLD=OFF
-    - -DENABLE_INCLUDEWHATYOUUSE=OFF
-    - -DENABLE_MOLD=OFF
-    - -DENABLE_TESTING=OFF
+      -DENABLE_CLANGTIDY=OFF
+      -DENABLE_CPPCHECK=OFF
+      -DENABLE_INCLUDEWHATYOUUSE=OFF
+      -DENABLE_TESTING=OFF \
 
-    - -DENABLE_INTERNAL_CEC=OFF
-    - -DENABLE_INTERNAL_CROSSGUID=OFF
-    - -DENABLE_INTERNAL_DAV1D=OFF
-    - -DENABLE_INTERNAL_FFMPEG=OFF
-    - -DENABLE_INTERNAL_FLATBUFFERS=OFF
-    - -DENABLE_INTERNAL_FMT=OFF
-    - -DENABLE_INTERNAL_FSTRCMP=OFF
-    - -DENABLE_INTERNAL_GTEST=OFF
-    - -DENABLE_INTERNAL_KISSFFT=OFF
-    - -DENABLE_INTERNAL_NFS=OFF
-    - -DENABLE_INTERNAL_PCRE=OFF
-    - -DENABLE_INTERNAL_RapidJSON=OFF
-    - -DENABLE_INTERNAL_SPDLOG=OFF
-    - -DENABLE_INTERNAL_TAGLIB=OFF
-    - -DENABLE_INTERNAL_UDFREAD=OFF
+      -DENABLE_INTERNAL_CEC=OFF
+      -DENABLE_INTERNAL_CROSSGUID=OFF
+      -DENABLE_INTERNAL_DAV1D=OFF
+      -DENABLE_INTERNAL_FFMPEG=OFF
+      -DENABLE_INTERNAL_FLATBUFFERS=OFF
+      -DENABLE_INTERNAL_FMT=OFF
+      -DENABLE_INTERNAL_FSTRCMP=OFF
+      -DENABLE_INTERNAL_GTEST=OFF
+      -DENABLE_INTERNAL_KISSFFT=OFF
+      -DENABLE_INTERNAL_NFS=OFF
+      -DENABLE_INTERNAL_PCRE=OFF
+      -DENABLE_INTERNAL_RapidJSON=OFF
+      -DENABLE_INTERNAL_SPDLOG=OFF
+      -DENABLE_INTERNAL_TAGLIB=OFF
+      -DENABLE_INTERNAL_UDFREAD=OFF \
 
-    - -DLIBDVDCSS_URL=${CRAFT_PART_SRC}/../../embed-libs/src/libdvdcss.tar.gz
-    - -DLIBDVDCSS_HASH=SHA512=1506c83fb665d9deff8352e3b08d8c691e91c57d89bcdd32bd3187d3dd973563d394754060a48b3e6497cb30e774e94cb8b727ca8cc08287e2d604177072a424
-    - -DLIBDVDNAV_URL=${CRAFT_PART_SRC}/../../embed-libs/src/libdvdnav.tar.gz
-    - -DLIBDVDNAV_HASH=SHA512=51e6fc033121241354a5f0b3fc9a430577ae3ff6bb7f31445aa548ef4893037fb80eea3b2c6774c81e9ebaf9c45e9b490c98c2c65eb38f9f7daba84b236f7e1d
-    - -DLIBDVDREAD_URL=${CRAFT_PART_SRC}/../../embed-libs/src/libdvdread.tar.gz
-    - -DLIBDVDREAD_HASH=SHA512=629a41157d07b8ec0ea1fe89ae5ec48f63047472a862782b805c531ae31a0376fc4dc15175f8280c3ef91d7fa977bacebb1b51232640034a34bab2293210fc5e
+      -DLIBDVDCSS_URL=${CRAFT_PART_SRC}/../../embed-libs/src/libdvdcss.tar.gz
+      -DLIBDVDCSS_HASH=SHA512=1506c83fb665d9deff8352e3b08d8c691e91c57d89bcdd32bd3187d3dd973563d394754060a48b3e6497cb30e774e94cb8b727ca8cc08287e2d604177072a424
+      -DLIBDVDNAV_URL=${CRAFT_PART_SRC}/../../embed-libs/src/libdvdnav.tar.gz
+      -DLIBDVDNAV_HASH=SHA512=51e6fc033121241354a5f0b3fc9a430577ae3ff6bb7f31445aa548ef4893037fb80eea3b2c6774c81e9ebaf9c45e9b490c98c2c65eb38f9f7daba84b236f7e1d
+      -DLIBDVDREAD_URL=${CRAFT_PART_SRC}/../../embed-libs/src/libdvdread.tar.gz
+      -DLIBDVDREAD_HASH=SHA512=629a41157d07b8ec0ea1fe89ae5ec48f63047472a862782b805c531ae31a0376fc4dc15175f8280c3ef91d7fa977bacebb1b51232640034a34bab2293210fc5e
+
+      cmake --build ${CRAFT_PART_BUILD} -j${CRAFT_PARALLEL_BUILD_COUNT:-}
+
+      DESTDIR=${CRAFT_PART_INSTALL} cmake --build ${CRAFT_PART_BUILD} --target install
 
     stage-packages:
+    - to amd64:
+      - libvpl2
     - libaom3
     - libasound2t64
     - libasound2-plugins
@@ -513,7 +534,6 @@ parts:
     - libvorbis0a
     - libvorbisenc2
     - libvorbisfile3
-    - libvpl2
     - libvpx9
     - libwacom9
     - libcwiid1t64
@@ -572,7 +592,7 @@ parts:
     - -usr/lib/*/libtheora.so*
     - -usr/lib/*/libunwind-coredump.so*
     - -usr/lib/*/libunwind-ptrace.so*
-    - -usr/lib/*/libunwind-x86_64.so*
+    - -usr/lib/*/libunwind-*.so*
     - -usr/lib/*/libwayland-client-unstable++.so*
     - -usr/lib/*/libzvbi-chains.so*
     organize:
