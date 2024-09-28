@@ -149,7 +149,7 @@ components:
   debug:
     type: test
     summary: Debugging symbols and tools
-    version: 21.2-Omega
+    version: Piers
     description: |
       This component includes the debug symbols stripped from the ELF files built
       in this snap. Install it and point gdb at `/snap/kodi/current/debug` to
@@ -193,8 +193,7 @@ parts:
   kodi:
     after: [displayinfo, embed-libs]
     source: https://github.com/xbmc/xbmc.git
-    source-tag: 21.2-Omega
-    source-depth: 1
+    source-branch: master
 
     override-pull: &patch |
       craftctl default
@@ -236,6 +235,7 @@ parts:
     - libdrm-dev
     - libegl1-mesa-dev
     - libenca-dev
+    - libexiv2-dev
     - libflac-dev
     - libfmt-dev
     - libfontconfig-dev
@@ -258,7 +258,6 @@ parts:
     - libmysqlclient-dev
     - libnfs-dev
     - libogg-dev
-    - libpcre2-dev
     - libplist-dev
     - libpng-dev
     - libpulse-dev
@@ -320,7 +319,6 @@ parts:
     - libiso9660++-dev
     - liblirc-dev
     - libmdnsd-dev
-    - libpcre3-dev
     - libpipewire-0.3-dev
 
     # build tools
@@ -417,9 +415,7 @@ parts:
       -DENABLE_INTERNAL_FMT=OFF
       -DENABLE_INTERNAL_FSTRCMP=OFF
       -DENABLE_INTERNAL_GTEST=OFF
-      -DENABLE_INTERNAL_KISSFFT=OFF
       -DENABLE_INTERNAL_NFS=OFF
-      -DENABLE_INTERNAL_PCRE=OFF
       -DENABLE_INTERNAL_RapidJSON=OFF
       -DENABLE_INTERNAL_SPDLOG=OFF
       -DENABLE_INTERNAL_TAGLIB=OFF
@@ -455,6 +451,7 @@ parts:
     - libdatrie1
     - libdav1d7
     - libegl1
+    - libexiv2-27
     - libfftw3-double3
     - libflac12t64
     - libflite1
@@ -477,7 +474,6 @@ parts:
     - libjansson4
     - libjpeg-turbo8
     - libjxl0.7
-    - libkissfft-float131
     - liblcms2-2
     - libldap2
     - libldb2
@@ -499,7 +495,6 @@ parts:
     - libpango-1.0-0
     - libpangocairo-1.0-0
     - libpangoft2-1.0-0
-    - libpcre3
     - libpgm-5.3-0t64
     - libpipewire-0.3-0t64
     - libpipewire-0.3-modules
