@@ -52,7 +52,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.2sf.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.asap:
     after:
@@ -72,7 +72,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.asap.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.gme:
     after:
@@ -92,7 +92,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.gme.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.gsf:
     after:
@@ -112,7 +112,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.gsf.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.hvl:
     after:
@@ -132,7 +132,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.hvl.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.ncsf:
     after:
@@ -152,7 +152,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.ncsf.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.nosefart:
     after:
@@ -177,7 +177,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.nosefart.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libopenmpt-dev
@@ -201,7 +201,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.openmpt.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.organya:
     after:
@@ -221,7 +221,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.organya.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.qsf:
     after:
@@ -241,7 +241,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.qsf.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.sacd:
     after:
@@ -266,7 +266,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.sacd.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libwavpack-dev
@@ -293,7 +293,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.sidplay.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libresid-builder-dev
@@ -322,7 +322,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.snesapu.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.ssf:
     after:
@@ -342,7 +342,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.ssf.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.stsound:
     after:
@@ -362,7 +362,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.stsound.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.timidity:
     after:
@@ -382,7 +382,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.timidity.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.upse:
     after:
@@ -402,7 +402,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.upse.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.usf:
     after:
@@ -422,7 +422,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.usf.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.vgmstream:
     after:
@@ -442,7 +442,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.vgmstream.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audiodecoder.wsr:
     after:
@@ -462,7 +462,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audiodecoder.wsr.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audioencoder.flac:
     after:
@@ -482,7 +482,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audioencoder.flac.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audioencoder.lame:
     after:
@@ -507,7 +507,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audioencoder.lame.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libmp3lame-dev
@@ -531,7 +531,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audioencoder.vorbis.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   audioencoder.wav:
     after:
@@ -551,7 +551,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/audioencoder.wav.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   bento4:
     cmake-generator: Ninja
@@ -603,7 +603,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-game/game.libretro.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - retroarch-dev
@@ -789,7 +789,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/imagedecoder.heif.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libde265-dev
@@ -815,7 +815,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/imagedecoder.mpo.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   imagedecoder.raw:
     after:
@@ -840,7 +840,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/imagedecoder.raw.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libraw-dev
@@ -872,7 +872,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/inputstream.adaptive.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libpugixml-dev
@@ -904,7 +904,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/inputstream.ffmpegdirect.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     override-pull: "craftctl default\nfor patch in ${CRAFT_PROJECT_DIR}/patches/${CRAFT_PART_NAME}/*;\
       \ do\n  patch --directory ${CRAFT_PART_SRC} --input \"${patch}\" --strip 1\n\
@@ -938,7 +938,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/inputstream.rtmp.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - librtmp-dev
@@ -960,8 +960,7 @@ parts:
     - displayinfo
     - embed-libs
     source: https://github.com/xbmc/xbmc.git
-    source-tag: 21.1-Omega
-    source-depth: 1
+    source-branch: master
     override-pull: "craftctl default\nfor patch in ${CRAFT_PROJECT_DIR}/patches/${CRAFT_PART_NAME}/*;\
       \ do\n  patch --directory ${CRAFT_PART_SRC} --input \"${patch}\" --strip 1\n\
       done\n"
@@ -1019,7 +1018,6 @@ parts:
     - libmysqlclient-dev
     - libnfs-dev
     - libogg-dev
-    - libpcre2-dev
     - libplist-dev
     - libpng-dev
     - libpulse-dev
@@ -1113,10 +1111,9 @@ parts:
 
       -DENABLE_INTERNAL_CEC=OFF -DENABLE_INTERNAL_CROSSGUID=OFF -DENABLE_INTERNAL_DAV1D=OFF
       -DENABLE_INTERNAL_FFMPEG=OFF -DENABLE_INTERNAL_FLATBUFFERS=OFF -DENABLE_INTERNAL_FMT=OFF
-      -DENABLE_INTERNAL_FSTRCMP=OFF -DENABLE_INTERNAL_GTEST=OFF -DENABLE_INTERNAL_KISSFFT=OFF
-      -DENABLE_INTERNAL_NFS=OFF -DENABLE_INTERNAL_PCRE=OFF -DENABLE_INTERNAL_RapidJSON=OFF
-      -DENABLE_INTERNAL_SPDLOG=OFF -DENABLE_INTERNAL_TAGLIB=OFF -DENABLE_INTERNAL_UDFREAD=OFF
-      \
+      -DENABLE_INTERNAL_FSTRCMP=OFF -DENABLE_INTERNAL_GTEST=OFF -DENABLE_INTERNAL_NFS=OFF
+      -DENABLE_INTERNAL_RapidJSON=OFF -DENABLE_INTERNAL_SPDLOG=OFF -DENABLE_INTERNAL_TAGLIB=OFF
+      -DENABLE_INTERNAL_UDFREAD=OFF \
 
       -DLIBDVDCSS_URL=${CRAFT_PART_SRC}/../../embed-libs/src/libdvdcss.tar.gz -DLIBDVDCSS_HASH=SHA512=1506c83fb665d9deff8352e3b08d8c691e91c57d89bcdd32bd3187d3dd973563d394754060a48b3e6497cb30e774e94cb8b727ca8cc08287e2d604177072a424
       -DLIBDVDNAV_URL=${CRAFT_PART_SRC}/../../embed-libs/src/libdvdnav.tar.gz -DLIBDVDNAV_HASH=SHA512=51e6fc033121241354a5f0b3fc9a430577ae3ff6bb7f31445aa548ef4893037fb80eea3b2c6774c81e9ebaf9c45e9b490c98c2c65eb38f9f7daba84b236f7e1d
@@ -1144,6 +1141,7 @@ parts:
     - libdatrie1
     - libdav1d7
     - libegl1
+    - libexiv2-27
     - libfftw3-double3
     - libflac12t64
     - libflite1
@@ -1166,7 +1164,6 @@ parts:
     - libjansson4
     - libjpeg-turbo8
     - libjxl0.7
-    - libkissfft-float131
     - liblcms2-2
     - libldap2
     - libldb2
@@ -1346,7 +1343,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/peripheral.joystick.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   peripheral.xarcade:
     after:
@@ -1366,7 +1363,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-game/peripheral.xarcade.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   projectm:
     build-packages:
@@ -1388,7 +1385,7 @@ parts:
 
       craftctl default
 
-      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/xbmc/visualization.projectm/Omega/depends/common/projectm/CMakeLists.txt
+      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/xbmc/visualization.projectm/Piers/depends/common/projectm/CMakeLists.txt
 
       '
     plugin: cmake
@@ -1417,7 +1414,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.argustv.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libjsoncpp-dev
@@ -1441,7 +1438,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.demo.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.dvblink:
     after:
@@ -1461,7 +1458,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.dvblink.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.dvbviewer:
     after:
@@ -1481,7 +1478,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.dvbviewer.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.filmon:
     after:
@@ -1501,7 +1498,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.filmon.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.freebox:
     after:
@@ -1526,7 +1523,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/aassif/pvr.freebox.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - nlohmann-json3-dev
@@ -1553,7 +1550,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.hdhomerun.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libhdhomerun-dev
@@ -1577,7 +1574,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.hts.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.iptvsimple:
     after:
@@ -1597,7 +1594,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.iptvsimple.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.mediaportal.tvserver:
     after:
@@ -1617,7 +1614,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.mediaportal.tvserver.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.mythtv:
     after:
@@ -1637,7 +1634,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/janbar/pvr.mythtv.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.nextpvr:
     after:
@@ -1657,7 +1654,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.nextpvr.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.njoy:
     after:
@@ -1677,7 +1674,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.njoy.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.octonet:
     after:
@@ -1697,7 +1694,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/DigitalDevices/pvr.octonet.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.pctv:
     after:
@@ -1717,7 +1714,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.pctv.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.plutotv:
     after:
@@ -1737,7 +1734,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.plutotv.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.sledovanitv.cz:
     after:
@@ -1757,7 +1754,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/palinek/pvr.sledovanitv.cz.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.stalker:
     after:
@@ -1777,7 +1774,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.stalker.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.teleboy:
     after:
@@ -1797,7 +1794,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/rbuehlma/pvr.teleboy.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.vbox:
     after:
@@ -1817,7 +1814,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.vbox.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.vdr.vnsi:
     after:
@@ -1837,7 +1834,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.vdr.vnsi.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.vuplus:
     after:
@@ -1857,7 +1854,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.vuplus.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.waipu:
     after:
@@ -1877,7 +1874,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/flubshi/pvr.waipu.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.wmc:
     after:
@@ -1897,7 +1894,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/kodi-pvr/pvr.wmc.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   pvr.zattoo:
     after:
@@ -1917,7 +1914,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/rbuehlma/pvr.zattoo.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   rcheevos:
     build-packages:
@@ -1944,7 +1941,7 @@ parts:
 
       craftctl default
 
-      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/kodi-game/game.libretro/Omega/depends/common/rcheevos/CMakeLists.txt
+      curl -o ${CRAFT_PART_SRC}/CMakeLists.txt https://raw.githubusercontent.com/kodi-game/game.libretro/Piers/depends/common/rcheevos/CMakeLists.txt
 
       '
     plugin: cmake
@@ -1975,7 +1972,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.asteroids.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libglm-dev
@@ -1997,7 +1994,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.asterwave.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   screensaver.biogenesis:
     after:
@@ -2017,7 +2014,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.biogenesis.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   screensaver.cpblobs:
     after:
@@ -2037,7 +2034,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.cpblobs.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   screensaver.greynetic:
     after:
@@ -2057,7 +2054,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.greynetic.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   screensaver.matrixtrails:
     after:
@@ -2077,7 +2074,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.matrixtrails.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   screensaver.pingpong:
     after:
@@ -2097,7 +2094,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.pingpong.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   screensaver.pyro:
     after:
@@ -2117,7 +2114,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.pyro.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   screensaver.shadertoy:
     after:
@@ -2137,7 +2134,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.shadertoy.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   screensaver.stars:
     after:
@@ -2157,7 +2154,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensaver.stars.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   screensavers.rsxs:
     after:
@@ -2177,7 +2174,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/screensavers.rsxs.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   vfs.libarchive:
     after:
@@ -2202,7 +2199,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/vfs.libarchive.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libarchive-dev
@@ -2226,7 +2223,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/vfs.rar.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   vfs.sftp:
     after:
@@ -2251,7 +2248,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/vfs.sftp.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
     build-packages:
     - libssh-dev
@@ -2275,7 +2272,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/visualization.fishbmc.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   visualization.goom:
     after:
@@ -2295,7 +2292,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/visualization.goom.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   visualization.matrix:
     after:
@@ -2315,7 +2312,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/visualization.matrix.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   visualization.pictureit:
     after:
@@ -2335,7 +2332,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/visualization.pictureit.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   visualization.projectm:
     after:
@@ -2361,7 +2358,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/visualization.projectm.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   visualization.shadertoy:
     after:
@@ -2381,7 +2378,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/visualization.shadertoy.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   visualization.spectrum:
     after:
@@ -2401,7 +2398,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/visualization.spectrum.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   visualization.starburst:
     after:
@@ -2421,7 +2418,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/visualization.starburst.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   visualization.waveform:
     after:
@@ -2441,7 +2438,7 @@ parts:
       \ --strip-unneeded \"${file}\"\ndone\n"
     plugin: cmake
     source: https://github.com/xbmc/visualization.waveform.git
-    source-branch: Omega
+    source-branch: Piers
     source-depth: 1
   displayinfo:
     source: https://gitlab.freedesktop.org/emersion/libdisplay-info.git
@@ -2569,7 +2566,7 @@ components:
   debug:
     type: test
     summary: Debugging symbols and tools
-    version: 21.1-Omega
+    version: Piers
     description: 'This component includes the debug symbols stripped from the ELF
       files built
 

@@ -11,7 +11,7 @@ import hiyapyco
 
 ADDONS_REPO = "https://github.com/xbmc/repo-binary-addons.git"
 DEPENDENCY_ROOT = "https://raw.githubusercontent.com/{owner}/{repo}/{branch}/depends/common/{dep}/"
-ADDONS_BRANCH = "Omega"
+ADDONS_BRANCH = "Piers"
 SOURCE = "snap/local/snapcraft.yaml.in"
 TARGET = "snap/snapcraft.yaml"
 
