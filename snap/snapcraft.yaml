@@ -906,9 +906,6 @@ parts:
     source: https://github.com/xbmc/inputstream.ffmpegdirect.git
     source-branch: Omega
     source-depth: 1
-    override-pull: "craftctl default\nfor patch in ${CRAFT_PROJECT_DIR}/patches/${CRAFT_PART_NAME}/*;\
-      \ do\n  patch --directory ${CRAFT_PART_SRC} --input \"${patch}\" --strip 1\n\
-      done\n"
     build-snaps:
     - ffmpeg-2404-sdk
     build-environment:

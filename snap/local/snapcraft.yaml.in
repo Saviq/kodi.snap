@@ -731,7 +731,6 @@ parts:
     - LIB: ${CRAFT_STAGE}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}
 
   inputstream.ffmpegdirect:
-    override-pull: *patch
     build-snaps: *ffmpeg-build-snaps
     build-environment: *ffmpeg-build-env
 
