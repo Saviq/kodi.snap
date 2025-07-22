@@ -963,7 +963,7 @@ parts:
     - displayinfo
     - embed-libs
     source: https://github.com/xbmc/xbmc.git
-    source-tag: 21.1-Omega
+    source-tag: 21.2-Omega
     source-depth: 1
     override-pull: "craftctl default\nfor patch in ${CRAFT_PROJECT_DIR}/patches/${CRAFT_PART_NAME}/*;\
       \ do\n  patch --directory ${CRAFT_PART_SRC} --input \"${patch}\" --strip 1\n\
@@ -2559,7 +2559,7 @@ components:
   debug:
     type: test
     summary: Debugging symbols and tools
-    version: 21.1-Omega
+    version: 21.2-Omega
     description: 'This component includes the debug symbols stripped from the ELF
       files built
 

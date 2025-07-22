@@ -149,7 +149,7 @@ components:
   debug:
     type: test
     summary: Debugging symbols and tools
-    version: 21.1-Omega
+    version: 21.2-Omega
     description: |
       This component includes the debug symbols stripped from the ELF files built
       in this snap. Install it and point gdb at `/snap/kodi/current/debug` to
@@ -193,7 +193,7 @@ parts:
   kodi:
     after: [displayinfo, embed-libs]
     source: https://github.com/xbmc/xbmc.git
-    source-tag: 21.1-Omega
+    source-tag: 21.2-Omega
     source-depth: 1
 
     override-pull: &patch |
