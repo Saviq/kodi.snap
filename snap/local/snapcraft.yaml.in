@@ -598,7 +598,13 @@ parts:
       usr/lib/*/pulseaudio/*: usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/
     override-prime: |
       craftctl default
-      craftctl set version=$( git -C ${CRAFT_PART_SRC} describe --tags --exact )
+
+      declare -A version
+      while read KEY VALUE; do
+        version[$KEY]=$VALUE
+      done < ${CRAFT_PART_SRC}/version.txt
+      craftctl set version="${version[VERSION_MAJOR]}.${version[VERSION_MINOR]}-${version[VERSION_TAG]}+git$( git -C ${CRAFT_PART_SRC} rev-parse --short HEAD )"
+
       awk -i inplace -f ${CRAFT_PROJECT_DIR}/snap/local/alsa.conf.awk ${CRAFT_PRIME}/usr/share/alsa/alsa.conf
       sed -i 's|Icon=.*|Icon=/usr/share/icons/hicolor/scalable/apps/kodi.svg|g' ${CRAFT_PRIME}/usr/share/applications/kodi.desktop
       awk -i inplace -f ${CRAFT_PROJECT_DIR}/snap/local/kodi.session.awk ${CRAFT_PRIME}/usr/share/wayland-sessions/kodi-gbm.desktop
